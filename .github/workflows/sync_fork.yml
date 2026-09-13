@@ -5,8 +5,8 @@ permissions:
 
 on:
     schedule:
-        - cron: "0 0 * * *"  # 每天午夜执行
-    workflow_dispatch:  # 允许手动触发
+        - cron: "0 0 * * *"
+    workflow_dispatch:
 
 jobs:
     sync_with_upstream:
@@ -18,12 +18,12 @@ jobs:
             - name: Checkout target repo
               uses: actions/checkout@v4
               with:
-                token: ${{ secrets.GITHUB_TOKEN }}
+                token: ${{ secrets.SYNC_TOKEN }}      # ← 改这里
 
             - name: Sync Upstream
               uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
               with:
-                  target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  target_repo_token: ${{ secrets.SYNC_TOKEN }}   # ← 改这里
                   upstream_sync_repo: huangxd-/danmu_api
                   upstream_sync_branch: main
                   target_sync_branch: main
